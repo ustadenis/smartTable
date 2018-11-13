@@ -242,10 +242,10 @@ public class TableProvider<T> implements TableClickObserver {
      */
     private void fillColumnTitle(Canvas canvas, ColumnInfo info, int left) {
 
-        int top = (int) (info.top * config.getZoom())
+        int top = info.top
                 + (config.isFixedTitle() ? showRect.top : scaleRect.top);
-        int right = (int) (left + info.width * config.getZoom());
-        int bottom = (int) (top + info.height * config.getZoom());
+        int right = (left + info.width);
+        int bottom = (top + info.height);
         if (DrawUtils.isMixRect(showRect, left, top, right, bottom)) {
             if (!isClickPoint && onColumnClickListener != null) {
                 if (DrawUtils.isClick(left, top, right, bottom, clickPoint)) {
@@ -435,6 +435,7 @@ public class TableProvider<T> implements TableClickObserver {
         if (column.getTextAlign() != null) {
             paint.setTextAlign(column.getTextAlign());
         }
+        rect.set(rect.left + config.getColumnTitleHorizontalPadding(), rect.top, rect.right, rect.bottom);
         canvas.drawText(text, DrawUtils.getTextCenterX(rect.left, rect.right, paint), DrawUtils.getTextCenterY(rect.centerY(), paint), paint);
     }
 

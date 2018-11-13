@@ -28,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TableConfig.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TableConfig.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/core/TableConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="386" selection-start-line="386" selection-end-line="386" />
+            <state relative-caret-position="114">
+              <caret line="343" column="29" selection-start-line="343" selection-start-column="29" selection-end-line="343" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -40,8 +40,8 @@
       <file leaf-file-name="TableInfo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/TableInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="114">
+              <caret line="108" column="19" selection-start-line="108" selection-start-column="14" selection-end-line="108" selection-end-column="19" />
               <folding>
                 <element signature="e#1401#1402#0" expanded="true" />
                 <element signature="e#1446#1447#0" expanded="true" />
@@ -64,8 +64,8 @@
       <file leaf-file-name="TitleDrawFormat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/TitleDrawFormat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="48" column="76" lean-forward="true" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
+            <state relative-caret-position="51">
+              <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -73,8 +73,8 @@
       <file leaf-file-name="TextDrawFormat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/draw/TextDrawFormat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="45" column="74" selection-start-line="45" selection-start-column="74" selection-end-line="45" selection-end-column="74" />
+            <state relative-caret-position="199">
+              <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
               <folding>
                 <element signature="e#643#644#0" expanded="true" />
                 <element signature="e#685#686#0" expanded="true" />
@@ -83,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TableProvider.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TableProvider.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/component/TableProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="427" column="48" selection-start-line="427" selection-start-column="48" selection-end-line="427" selection-end-column="48" />
+            <state relative-caret-position="187">
+              <caret line="246" column="39" selection-start-line="246" selection-start-column="39" selection-end-line="246" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -107,6 +107,9 @@
     <findStrings>
       <find>zoom</find>
       <find>TextDrawFormat</find>
+      <find>count</find>
+      <find>Count</find>
+      <find>Zoom</find>
       <find>drawCountText</find>
     </findStrings>
   </component>
@@ -2927,15 +2930,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/smarttable/data/format/draw/TextDrawFormat.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/TitleImageDrawFormat.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/TitleDrawFormat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/smarttable/component/TableProvider.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/ITitleDrawFormat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/smarttable/component/TableProvider.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="32" />
-    <option name="width" value="1936" />
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
+    <option name="width" value="1560" />
     <option name="height" value="1176" />
   </component>
   <component name="ProjectView">
@@ -3006,7 +3009,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="TableProvider&#9;PSI&#9;JAVA://com.smarttable.component.TableProvider&#10;TextDrawFormat&#9;PSI&#9;JAVA://com.smarttable.data.format.draw.TextDrawFormat&#10;TitleImage&#9;PSI&#9;JAVA://com.smarttable.data.format.title.TitleImageDrawFormat&#10;Text&#9;PSI&#9;JAVA://com.smarttable.data.format.draw.TextImageDrawFormat&#10;TableInfo&#9;PSI&#9;JAVA://com.smarttable.data.TableInfo&#10;TableConf&#9;PSI&#9;JAVA://com.smarttable.core.TableConfig" />
+    <property name="SearchEverywhereHistoryKey" value="TableConfig&#9;FILE&#9;file://C:/Projects/smartTable/form/src/main/java/com/smarttable/core/TableConfig.java&#10;TableProvider&#9;PSI&#9;JAVA://com.smarttable.component.TableProvider&#10;TextDrawFormat&#9;PSI&#9;JAVA://com.smarttable.data.format.draw.TextDrawFormat&#10;TitleImage&#9;PSI&#9;JAVA://com.smarttable.data.format.title.TitleImageDrawFormat&#10;Text&#9;PSI&#9;JAVA://com.smarttable.data.format.draw.TextImageDrawFormat&#10;TableInfo&#9;PSI&#9;JAVA://com.smarttable.data.TableInfo&#10;TableConf&#9;PSI&#9;JAVA://com.smarttable.core.TableConfig" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../TableView" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1542114411929" />
@@ -3142,7 +3145,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="32" width="1936" height="1176" extended-state="6" />
+    <frame x="-7" y="33" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
@@ -3154,12 +3157,12 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32906404" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.22014925" />
       <window_info anchor="bottom" id="Logcat" order="7" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24696356" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32906404" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32906404" />
       <window_info anchor="right" id="Gradle" order="3" />
@@ -3206,23 +3209,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/ITitleDrawFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/TableInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="114">
+          <caret line="108" column="19" selection-start-line="108" selection-start-column="14" selection-end-line="108" selection-end-column="19" />
           <folding>
             <element signature="e#1401#1402#0" expanded="true" />
             <element signature="e#1446#1447#0" expanded="true" />
             <element signature="e#2990#2991#0" expanded="true" />
             <element signature="e#3032#3033#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/TitleDrawFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="48" column="76" lean-forward="true" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
         </state>
       </provider>
     </entry>
@@ -3233,10 +3236,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/core/TableConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="343" column="29" selection-start-line="343" selection-start-column="29" selection-end-line="343" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/TitleDrawFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/draw/TextDrawFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="45" column="74" selection-start-line="45" selection-start-column="74" selection-end-line="45" selection-end-column="74" />
+        <state relative-caret-position="199">
+          <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
           <folding>
             <element signature="e#643#644#0" expanded="true" />
             <element signature="e#685#686#0" expanded="true" />
@@ -3246,22 +3263,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/component/TableProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="427" column="48" selection-start-line="427" selection-start-column="48" selection-end-line="427" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/title/ITitleDrawFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/core/TableConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="386" selection-start-line="386" selection-end-line="386" />
+        <state relative-caret-position="187">
+          <caret line="246" column="39" selection-start-line="246" selection-start-column="39" selection-end-line="246" selection-end-column="39" />
         </state>
       </provider>
     </entry>
