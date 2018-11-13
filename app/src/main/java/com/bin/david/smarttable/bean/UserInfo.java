@@ -1,8 +1,8 @@
 package com.bin.david.smarttable.bean;
 
-import com.bin.david.form.annotation.ColumnType;
-import com.bin.david.form.annotation.SmartColumn;
-import com.bin.david.form.annotation.SmartTable;
+import com.smarttable.annotation.ColumnType;
+import com.smarttable.annotation.SmartColumn;
+import com.smarttable.annotation.SmartTable;
 import com.bin.david.smarttable.bean.ChildData;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.bin.david.smarttable.excel;
 
 import android.content.Context;
 
-import com.bin.david.form.core.SmartTable;
+import com.smarttable.core.SmartTable;
 
 
 /**

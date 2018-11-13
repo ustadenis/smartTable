@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.bin.david.form.core.TableConfig;
+import com.smarttable.core.TableConfig;
 
 /**
  * Created by huang on 2018/1/18.

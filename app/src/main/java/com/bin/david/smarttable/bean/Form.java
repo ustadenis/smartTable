@@ -2,7 +2,7 @@ package com.bin.david.smarttable.bean;
 
 import android.graphics.Paint;
 
-import com.bin.david.form.data.form.IForm;
+import com.smarttable.data.form.IForm;
 
 /**
  * Created by huang on 2018/4/10.

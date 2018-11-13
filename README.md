@@ -78,7 +78,7 @@ dependencies {
 > * Use SmartTable
 
 ```
- <com.bin.david.form.core.SmartTable
+ <com.smarttable.core.SmartTable
        android:id="@+id/table"
        android:layout_width="match_parent"
        android:layout_height="match_parent"

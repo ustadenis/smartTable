@@ -5,20 +5,20 @@ import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.bin.david.form.core.SmartTable;
-import com.bin.david.form.data.column.Column;
-import com.bin.david.form.data.column.ColumnInfo;
-import com.bin.david.form.data.table.TableData;
-import com.bin.david.form.data.format.IFormat;
-import com.bin.david.form.data.format.count.ICountFormat;
-import com.bin.david.form.data.format.draw.ImageResDrawFormat;
-import com.bin.david.form.data.format.draw.TextImageDrawFormat;
-import com.bin.david.form.data.format.tip.MultiLineBubbleTip;
-import com.bin.david.form.data.format.title.TitleImageDrawFormat;
-import com.bin.david.form.data.style.FontStyle;
-import com.bin.david.form.listener.OnColumnClickListener;
-import com.bin.david.form.listener.OnColumnItemClickListener;
-import com.bin.david.form.utils.DensityUtils;
+import com.smarttable.core.SmartTable;
+import com.smarttable.data.column.Column;
+import com.smarttable.data.column.ColumnInfo;
+import com.smarttable.data.table.TableData;
+import com.smarttable.data.format.IFormat;
+import com.smarttable.data.format.count.ICountFormat;
+import com.smarttable.data.format.draw.ImageResDrawFormat;
+import com.smarttable.data.format.draw.TextImageDrawFormat;
+import com.smarttable.data.format.tip.MultiLineBubbleTip;
+import com.smarttable.data.format.title.TitleImageDrawFormat;
+import com.smarttable.data.style.FontStyle;
+import com.smarttable.listener.OnColumnClickListener;
+import com.smarttable.listener.OnColumnItemClickListener;
+import com.smarttable.utils.DensityUtils;
 import com.bin.david.smarttable.R;
 import com.bin.david.smarttable.bean.ChildData;
 import com.bin.david.smarttable.bean.UserInfo;
@@ -221,7 +221,7 @@ public class TableListAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
                 Toast.makeText(mContext,"点击了"+value,Toast.LENGTH_SHORT).show();
             }
         });
-        com.bin.david.form.data.style.FontStyle fontStyle = new com.bin.david.form.data.style.FontStyle();
+        com.smarttable.data.style.FontStyle fontStyle = new com.smarttable.data.style.FontStyle();
         fontStyle.setTextColor(mContext.getResources().getColor(android.R.color.white));
         MultiLineBubbleTip<Column> tip = new MultiLineBubbleTip<Column>(mContext,R.mipmap.round_rect,R.mipmap.triangle,fontStyle) {
             @Override
@@ -254,7 +254,7 @@ public class TableListAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
                 Toast.makeText(mContext,"点击了"+columnInfo.column.getColumnName(),Toast.LENGTH_SHORT).show();
             }
         });
-        table.getConfig().setTableTitleStyle(new com.bin.david.form.data.style.FontStyle(mContext,15,mContext.getResources().getColor(R.color.arc1)));
+        table.getConfig().setTableTitleStyle(new com.smarttable.data.style.FontStyle(mContext,15,mContext.getResources().getColor(R.color.arc1)));
         table.setTableData(tableData);
     }
 }

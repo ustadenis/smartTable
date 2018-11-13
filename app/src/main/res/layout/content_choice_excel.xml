@@ -8,7 +8,7 @@
     tools:context="com.bin.david.smarttable.ChoiceExcelActivity"
     tools:showIn="@layout/app_bar_choice_excel">
 
-    <com.bin.david.form.core.SmartTable
+    <com.smarttable.core.SmartTable
         android:id="@+id/table"
         android:layout_weight="1"
         android:layout_width="match_parent"

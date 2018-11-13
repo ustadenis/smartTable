@@ -2,8 +2,8 @@ package com.bin.david.smarttable.bean;
 
 import android.graphics.Paint;
 
-import com.bin.david.form.annotation.SmartColumn;
-import com.bin.david.form.annotation.SmartTable;
+import com.smarttable.annotation.SmartColumn;
+import com.smarttable.annotation.SmartTable;
 
 /**
  * Created by huang on 2017/11/4.

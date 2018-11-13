@@ -12,14 +12,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.bin.david.form.core.SmartTable;
-import com.bin.david.form.core.TableConfig;
-import com.bin.david.form.data.CellInfo;
-import com.bin.david.form.data.column.Column;
-import com.bin.david.form.data.format.draw.IDrawFormat;
-import com.bin.david.form.data.style.LineStyle;
-import com.bin.david.form.data.table.ArrayTableData;
-import com.bin.david.form.utils.DensityUtils;
+import com.smarttable.core.SmartTable;
+import com.smarttable.core.TableConfig;
+import com.smarttable.data.CellInfo;
+import com.smarttable.data.column.Column;
+import com.smarttable.data.format.draw.IDrawFormat;
+import com.smarttable.data.style.LineStyle;
+import com.smarttable.data.table.ArrayTableData;
+import com.smarttable.utils.DensityUtils;
 import com.bin.david.smarttable.bean.TableStyle;
 import com.bin.david.smarttable.view.QuickChartDialog;
 

@@ -7,10 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.bin.david.form.core.SmartTable;
+import com.smarttable.core.SmartTable;
 
-import com.bin.david.form.data.style.FontStyle;
-import com.bin.david.form.utils.DensityUtils;
+import com.smarttable.data.style.FontStyle;
+import com.smarttable.utils.DensityUtils;
 import com.bin.david.smarttable.adapter.SheetAdapter;
 import com.bin.david.smarttable.excel.ExcelCallback;
 import com.bin.david.smarttable.excel.IExcel2Table;

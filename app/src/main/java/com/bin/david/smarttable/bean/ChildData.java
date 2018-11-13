@@ -1,7 +1,7 @@
 package com.bin.david.smarttable.bean;
 
 
-import com.bin.david.form.annotation.SmartColumn;
+import com.smarttable.annotation.SmartColumn;
 
 /**
  * Created by huang on 2017/11/1.

@@ -87,6 +87,6 @@
 #SmartTable
 -keepattributes *Annotation*
 -keepclassmembers class ** {
-    @com.bin.david.form.annotation.SmartTable<fields>;
+    @com.smarttable.annotation.SmartTable<fields>;
 }
--keep enum com.bin.david.form.annotation.ColumnType { *; }
+-keep enum com.smarttable.annotation.ColumnType { *; }
