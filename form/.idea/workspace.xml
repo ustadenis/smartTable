@@ -41,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/TableInfo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="398">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+              <caret line="76" selection-start-line="76" selection-end-line="76" />
               <folding>
                 <element signature="e#1401#1402#0" expanded="true" />
                 <element signature="e#1446#1447#0" expanded="true" />
@@ -64,8 +64,8 @@
       <file leaf-file-name="TextDrawFormat.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/draw/TextDrawFormat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="661">
-              <caret line="52" column="49" lean-forward="true" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
+            <state relative-caret-position="306">
+              <caret line="51" column="58" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
               <folding>
                 <element signature="e#643#644#0" expanded="true" />
                 <element signature="e#685#686#0" expanded="true" />
@@ -3096,12 +3096,12 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32906404" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32906404" />
       <window_info anchor="bottom" id="Logcat" order="7" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32906404" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32906404" />
       <window_info anchor="right" id="Gradle" order="3" />
@@ -3158,7 +3158,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/TableInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
           <folding>
             <element signature="e#1401#1402#0" expanded="true" />
             <element signature="e#1446#1447#0" expanded="true" />
@@ -3177,8 +3177,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smarttable/data/format/draw/TextDrawFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="661">
-          <caret line="52" column="49" lean-forward="true" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
+        <state relative-caret-position="306">
+          <caret line="51" column="58" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
           <folding>
             <element signature="e#643#644#0" expanded="true" />
             <element signature="e#685#686#0" expanded="true" />

@@ -49,7 +49,7 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
         if (cellInfo.column.getTextAlign() != null) {
             paint.setTextAlign(cellInfo.column.getTextAlign());
         }
-        rect.set(rect.left + config.getVerticalPadding(), rect.top, rect.right, rect.bottom);
+        rect.set(rect.left + config.getHorizontalPadding(), rect.top, rect.right, rect.bottom);
         drawText(c, cellInfo.value, rect, paint);
     }
 

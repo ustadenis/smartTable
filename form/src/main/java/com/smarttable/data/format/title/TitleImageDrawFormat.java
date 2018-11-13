@@ -89,7 +89,7 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
                 break;
             case RIGHT:
                 textWidth = (int) (textDrawFormat.measureWidth(column, config) * config.getZoom());
-                imgLeft = rect.left + textWidth + drawPadding;
+                imgLeft = rect.left + textWidth + drawPadding + config.getColumnTitleHorizontalPadding();
                 imgRight = (int) (imgLeft + getImageWidth() * config.getZoom());
                 this.rect.set(imgLeft, rect.top, imgRight, rect.bottom);
                 super.draw(c, column, this.rect, config);
