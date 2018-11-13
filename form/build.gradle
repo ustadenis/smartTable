@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.huangyanbin'
+group='com.github.ustadenis'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '26.0.3'
 
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,13 +24,10 @@ android {
     }
 }
 
-
-
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
-// 打包源码
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
@@ -44,7 +41,6 @@ task javadoc(type: Javadoc) {
     classpath += configurations.compile
 }
 
-// 制作文档(Javadoc)
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
@@ -56,4 +52,5 @@ artifacts {
 }
 
 dependencies {
+    implementation 'com.github.jitpack:gradle-simple:1.0'
 }
