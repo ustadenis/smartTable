@@ -1,5 +1,7 @@
 package com.smarttable.listener;
 
+import android.view.MotionEvent;
+
 /**
  * Created by huang on 2017/11/4.
  */
@@ -7,4 +9,5 @@ package com.smarttable.listener;
 public interface OnTableChangeListener {
 
     void onTableChanged(float scale, float translateX, float translateY);
+
 }

@@ -32,8 +32,8 @@ import java.util.List;
 
 public class MatrixHelper extends Observable<TableClickObserver> implements ITouch, ScaleGestureDetector.OnScaleGestureListener {
 
-    private  float maxZoom = 5;
-    private  float minZoom = 1;
+    private float maxZoom = 5;
+    private float minZoom = 1;
     private float zoom = minZoom; //缩放比例  不得小于1
     private int translateX; //以左上角为准，X轴位移的距离
     private int translateY;//以左上角为准，y轴位移的距离
@@ -58,6 +58,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 手势帮助类构造方法
+     *
      * @param context 用于获取GestureDetector，scroller ViewConfiguration
      */
     public MatrixHelper(Context context) {
@@ -84,7 +85,6 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     }
 
 
-
     /**
      * 判断是否需要接收触摸事件
      */
@@ -96,15 +96,15 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
             parent.requestDisallowInterceptTouchEvent(false);
             return;
         }
-        switch (event.getAction()&MotionEvent.ACTION_MASK) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 pointMode = 1;
                 //ACTION_DOWN的时候，赶紧把事件hold住
                 mDownX = event.getX();
                 mDownY = event.getY();
-                if(originalRect.contains((int)mDownX,(int)mDownY)){ //判断是否落在图表内容区中
+                if (originalRect.contains((int) mDownX, (int) mDownY)) { //判断是否落在图表内容区中
                     parent.requestDisallowInterceptTouchEvent(true);
-                }else{
+                } else {
                     parent.requestDisallowInterceptTouchEvent(false);
                 }
 
@@ -147,6 +147,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     /**
      * 通过translateX值判断是否到左边界
      * 通过该方法可以判断是否继续拦截滑动事件
+     *
      * @return 是否到左边界
      */
     private boolean toRectLeft() {
@@ -155,21 +156,26 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 通过translateX值判断是否到右边界
+     *
      * @return 是否到右边界
      */
     private boolean toRectRight() {
-        return translateX >= zoomRect.width() -originalRect.width();
+        return translateX >= zoomRect.width() - originalRect.width();
     }
+
     /**
      * 通过translateY值判断是否到底部边界
+     *
      * @return 是否到底部边界
      */
     private boolean toRectBottom() {
-        int height = zoomRect.height() -originalRect.height();
-        return translateY>= height;
+        int height = zoomRect.height() - originalRect.height();
+        return translateY >= height;
     }
+
     /**
      * 通过translateY值判断是否到顶部边界
+     *
      * @return 是否到顶部边界
      */
     private boolean toRectTop() {
@@ -179,14 +185,15 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     /**
      * 通知View更新
      */
-    private void notifyViewChanged(){
-        if(listener != null) {
+    private void notifyViewChanged() {
+        if (listener != null) {
             listener.onTableChanged(zoom, translateX, translateY);
         }
     }
 
     /**
      * 被观察者通知方法
+     *
      * @param observers
      */
     @Override
@@ -214,13 +221,8 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     class OnTableGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
-        public void onLongPress(MotionEvent e) {
-            super.onLongPress(e);
-        }
-
-        @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            if(onInterceptListener ==null || !onInterceptListener.isIntercept(e1,distanceX,distanceY)){
+            if (onInterceptListener == null || !onInterceptListener.isIntercept(e1, distanceX, distanceY)) {
 
                 translateX += distanceX;
                 translateY += distanceY;
@@ -232,13 +234,13 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             //根据滑动速率 设置Scroller final值,然后使用属性动画计算
-            if(Math.abs(velocityX) >mMinimumVelocity || Math.abs(velocityY) >mMinimumVelocity) {
-               scroller.setFinalX(0);
-               scroller.setFinalY(0);
+            if (Math.abs(velocityX) > mMinimumVelocity || Math.abs(velocityY) > mMinimumVelocity) {
+                scroller.setFinalX(0);
+                scroller.setFinalY(0);
                 tempTranslateX = translateX;
                 tempTranslateY = translateY;
-                scroller.fling(0,0,(int)velocityX,(int)velocityY,-50000,50000
-               ,-50000,50000);
+                scroller.fling(0, 0, (int) velocityX, (int) velocityY, -50000, 50000
+                        , -50000, 50000);
                 isFling = true;
                 startFilingAnim(false);
             }
@@ -252,8 +254,6 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
             return true;
         }
-
-
 
 
         //双击
@@ -291,6 +291,14 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
             }
             return true;
         }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            notifyViewChanged();
+            for (TableClickObserver observer : observables) {
+                observer.onLongClick(e.getX(), e.getY());
+            }
+        }
     }
 
 
@@ -309,10 +317,10 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
         float oldZoom = zoom;
         boolean isScaleEnd = false;
         float scale = detector.getScaleFactor();
-        if(scale >1 && isScaleMax){
+        if (scale > 1 && isScaleMax) {
             isScaleMin = false;
             return true;
-        }else if(scale <1 && isScaleMin){
+        } else if (scale < 1 && isScaleMin) {
             isScaleMax = false;
             return true;
         }
@@ -321,11 +329,11 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
             isScaleMax = true;
             this.zoom = maxZoom;
             isScaleEnd = true;
-        } else if (this.zoom<= minZoom) {
+        } else if (this.zoom <= minZoom) {
             isScaleMin = true;
             this.zoom = minZoom;
             isScaleEnd = true;
-        }else{
+        } else {
             isScaleMin = false;
             isScaleMax = false;
         }
@@ -344,43 +352,44 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     private Point startPoint = new Point(0, 0);
     private Point endPoint = new Point();
     private TimeInterpolator interpolator = new DecelerateInterpolator();
-    private PointEvaluator evaluator= new PointEvaluator();
+    private PointEvaluator evaluator = new PointEvaluator();
 
     /**
      * 开始飞滚
+     *
      * @param doubleWay 双向飞滚
      */
     private void startFilingAnim(boolean doubleWay) {
 
-        int scrollX =Math.abs(scroller.getFinalX());
-        int scrollY =Math.abs(scroller.getFinalY());
-        if(doubleWay){
+        int scrollX = Math.abs(scroller.getFinalX());
+        int scrollY = Math.abs(scroller.getFinalY());
+        if (doubleWay) {
             endPoint.set((int) (scroller.getFinalX() * flingRate),
                     (int) (scroller.getFinalY() * flingRate));
-        }else {
+        } else {
             if (scrollX > scrollY) {
                 endPoint.set((int) (scroller.getFinalX() * flingRate), 0);
             } else {
                 endPoint.set(0, (int) (scroller.getFinalY() * flingRate));
             }
         }
-        final ValueAnimator valueAnimator = ValueAnimator.ofObject(evaluator,startPoint,endPoint);
+        final ValueAnimator valueAnimator = ValueAnimator.ofObject(evaluator, startPoint, endPoint);
         valueAnimator.setInterpolator(interpolator);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                if(isFling) {
+                if (isFling) {
                     Point point = (Point) animation.getAnimatedValue();
                     translateX = tempTranslateX - point.x;
                     translateY = tempTranslateY - point.y;
                     notifyViewChanged();
-                }else{
+                } else {
                     animation.cancel();
                 }
             }
         });
-        int duration = (int)(Math.max(scrollX,scrollY)*flingRate)/2;
-        valueAnimator.setDuration(duration>300 ?300:duration);
+        int duration = (int) (Math.max(scrollX, scrollY) * flingRate) / 2;
+        valueAnimator.setDuration(duration > 300 ? 300 : duration);
         valueAnimator.start();
     }
 
@@ -397,18 +406,18 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 获取图片内容的缩放大小
-     * @param showRect 当前View显示大小
-     *@param providerRect 表格实际需要的大小
-     * @return 缩放后内容的大小
      *
+     * @param showRect     当前View显示大小
+     * @param providerRect 表格实际需要的大小
+     * @return 缩放后内容的大小
      */
-    public Rect getZoomProviderRect(Rect showRect, Rect providerRect,TableInfo tableInfo) {
+    public Rect getZoomProviderRect(Rect showRect, Rect providerRect, TableInfo tableInfo) {
         originalRect.set(showRect);
         int showWidth = showRect.width();
         int showHeight = showRect.height();
         int offsetX = (int) (showWidth * (zoom - 1)) / 2;
         int offsetY = (int) (showHeight * (zoom - 1)) / 2;
-        if(!isAutoFling) {
+        if (!isAutoFling) {
             int oldw = providerRect.width();
             int oldh = providerRect.height();
             int newWidth = (int) (oldw * zoom);
@@ -456,8 +465,8 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
             } else {
                 isFullShowY = true;
             }
-            scaleRect.left = providerRect.left - offsetX - translateX+showRect.left;
-            scaleRect.top = providerRect.top - offsetY - translateY+showRect.top;
+            scaleRect.left = providerRect.left - offsetX - translateX + showRect.left;
+            scaleRect.top = providerRect.top - offsetY - translateY + showRect.top;
             if (isFullShowX) {
                 if (isZooming) {
                     scaleRect.left = scaleRect.left < showRect.left ? showRect.left : scaleRect.left;
@@ -479,9 +488,9 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
             scaleRect.right = scaleRect.left + newWidth;
             scaleRect.bottom = scaleRect.top + newHeight;
             zoomRect.set(scaleRect);
-        }else{
-            translateX= providerRect.left- zoomRect.left- offsetX;
-            translateY  = providerRect.top-zoomRect.top - offsetY ;
+        } else {
+            translateX = providerRect.left - zoomRect.left - offsetX;
+            translateY = providerRect.top - zoomRect.top - offsetY;
             scaleRect.set(zoomRect);
         }
         return scaleRect;
@@ -500,9 +509,9 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     }
 
 
-
     /**
      * 是否可以缩放
+     *
      * @return 是否可以缩放
      */
     public boolean isCanZoom() {
@@ -510,6 +519,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
         return isCanZoom;
 
     }
+
     /**
      * 获取表格改变监听
      * 主要用于SmartTable view监听matrixHelper 移动和缩放
@@ -522,6 +532,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
      * 设置表格改变监听
      * 主要用于SmartTable view监听matrixHelper 移动和缩放
      * 请不要改变原来设置值
+     *
      * @param onTableChangeListener 改变监听
      */
     public void setOnTableChangeListener(OnTableChangeListener onTableChangeListener) {
@@ -530,17 +541,19 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 设置是否可以缩放
+     *
      * @param canZoom
      */
     public void setCanZoom(boolean canZoom) {
         isCanZoom = canZoom;
-        if(!isCanZoom){
+        if (!isCanZoom) {
             zoom = 1;
         }
     }
 
     /**
      * 设置最大缩放值
+     *
      * @return 最大缩放值
      */
     public float getMaxZoom() {
@@ -549,6 +562,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 获取最小缩放值
+     *
      * @return 最小缩放值
      */
     public float getMinZoom() {
@@ -561,40 +575,41 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
      */
     public void setMinZoom(float minZoom) {
 
-        if(minZoom <0){
+        if (minZoom < 0) {
             minZoom = 0.1f;
         }
         this.minZoom = minZoom;
     }
+
     /**
      * 设置最大缩放值
      */
     public void setMaxZoom(float maxZoom) {
-        if(maxZoom <1){
+        if (maxZoom < 1) {
             maxZoom = 1;
         }
         this.maxZoom = maxZoom;
     }
 
-    public void reset(){
-        this.zoom =1;
-        this.translateX =0;
-        this.translateY =0;
+    public void reset() {
+        this.zoom = 1;
+        this.translateX = 0;
+        this.translateY = 0;
         notifyViewChanged();
     }
 
     /**
      * 飞滚到最左边
      */
-    public void flingLeft(int duration){
+    public void flingLeft(int duration) {
         final int width = zoomRect.width();
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(zoomRect.left,0).setDuration(duration);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(zoomRect.left, 0).setDuration(duration);
         valueAnimator.addListener(animatorListenerAdapter);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                zoomRect.left = (int)animation.getAnimatedValue();
-                zoomRect.right = zoomRect.left+width;
+                zoomRect.left = (int) animation.getAnimatedValue();
+                zoomRect.right = zoomRect.left + width;
                 notifyViewChanged();
             }
         });
@@ -603,11 +618,10 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     }
 
 
-
     /**
      * 飞滚到最右边
      */
-    public void flingRight(int duration){
+    public void flingRight(int duration) {
         final int width = zoomRect.width();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(zoomRect.right,
                 originalRect.right).setDuration(duration);
@@ -615,8 +629,8 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                zoomRect.right = (int)animation.getAnimatedValue();
-                zoomRect.left = zoomRect.right-width;
+                zoomRect.right = (int) animation.getAnimatedValue();
+                zoomRect.left = zoomRect.right - width;
                 notifyViewChanged();
             }
         });
@@ -627,15 +641,15 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     /**
      * 飞滚到顶部
      */
-    public void flingTop(int duration){
+    public void flingTop(int duration) {
         final int height = zoomRect.height();
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(zoomRect.top,0).setDuration(duration);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(zoomRect.top, 0).setDuration(duration);
         valueAnimator.addListener(animatorListenerAdapter);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                zoomRect.top = (int)animation.getAnimatedValue();
-                zoomRect.bottom = zoomRect.top+height;
+                zoomRect.top = (int) animation.getAnimatedValue();
+                zoomRect.bottom = zoomRect.top + height;
                 notifyViewChanged();
             }
         });
@@ -643,11 +657,10 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
     }
 
 
-
     /**
      * 飞滚到底部
      */
-    public void flingBottom(int duration){
+    public void flingBottom(int duration) {
         final int height = zoomRect.height();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(zoomRect.bottom,
                 originalRect.bottom).setDuration(duration);
@@ -655,13 +668,14 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                zoomRect.bottom = (int)animation.getAnimatedValue();
-                zoomRect.top = zoomRect.bottom-height;
+                zoomRect.bottom = (int) animation.getAnimatedValue();
+                zoomRect.top = zoomRect.bottom - height;
                 notifyViewChanged();
             }
         });
         valueAnimator.start();
     }
+
     private AnimatorListenerAdapter animatorListenerAdapter = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationStart(Animator animation) {
@@ -672,13 +686,16 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
         public void onAnimationCancel(Animator animation) {
             isAutoFling = false;
         }
+
         @Override
         public void onAnimationEnd(Animator animation) {
             isAutoFling = false;
         }
     };
+
     /**
      * 获取当前的缩放值
+     *
      * @return 当前的缩放值
      */
     public float getZoom() {
@@ -688,6 +705,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 获取飞滚的速率
+     *
      * @return 飞滚的速率
      */
     public float getFlingRate() {
@@ -696,6 +714,7 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
     /**
      * 动态设置飞滚的速率
+     *
      * @param flingRate 速率
      */
     public void setFlingRate(float flingRate) {

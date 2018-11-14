@@ -33,9 +33,9 @@ public class TableProvider<T> implements TableClickObserver {
     private Rect scaleRect;
     private Rect showRect;
     private TableConfig config;
-    private PointF clickPoint;
+    private PointLF clickPoint;
     private ColumnInfo clickColumnInfo;
-    private boolean isClickPoint;
+    private ClickType isClickPoint = ClickType.NONE;
     private OnColumnClickListener onColumnClickListener;
     /**
      * 选中格子格式化
@@ -54,7 +54,7 @@ public class TableProvider<T> implements TableClickObserver {
 
     public TableProvider() {
 
-        clickPoint = new PointF(-1, -1);
+        clickPoint = new PointLF(-1, -1, false);
         clipRect = new Rect();
         tempRect = new Rect();
         operation = new SelectionOperation();
@@ -82,7 +82,7 @@ public class TableProvider<T> implements TableClickObserver {
         if (drawOver != null)
             drawOver.draw(canvas, scaleRect, showRect, config);
         canvas.restore();
-        if (isClickPoint && clickColumnInfo != null) {
+        if (isClickPoint.isClick() && clickColumnInfo != null) {
             onColumnClickListener.onClick(clickColumnInfo);
         }
         if (tipColumn != null) {
@@ -99,7 +99,7 @@ public class TableProvider<T> implements TableClickObserver {
      * @param config    配置
      */
     private void setData(Rect scaleRect, Rect showRect, TableData<T> tableData, TableConfig config) {
-        isClickPoint = false;
+        isClickPoint = ClickType.NONE;
         clickColumnInfo = null;
         tipColumn = null;
         operation.reset();
@@ -247,11 +247,15 @@ public class TableProvider<T> implements TableClickObserver {
         int right = (left + info.width);
         int bottom = (top + info.height);
         if (DrawUtils.isMixRect(showRect, left, top, right, bottom)) {
-            if (!isClickPoint && onColumnClickListener != null) {
+            if (isClickPoint.isNone() && onColumnClickListener != null) {
                 if (DrawUtils.isClick(left, top, right, bottom, clickPoint)) {
-                    isClickPoint = true;
+                    if (clickPoint.isLongClick) {
+                        isClickPoint = ClickType.LONG_CLICK;
+                    } else {
+                        isClickPoint = ClickType.CLICK;
+                    }
                     clickColumnInfo = info;
-                    clickPoint.set(-1, -1);
+                    clickPoint.reset();
                 }
             }
             Paint paint = config.getPaint();
@@ -340,9 +344,14 @@ public class TableProvider<T> implements TableClickObserver {
                                     tipPoint.y = (top + bottom) / 2;
                                     tipColumn = column;
                                     tipPosition = j;
-                                    clickColumn(column, j, value, data);
-                                    isClickPoint = true;
-                                    clickPoint.set(-Integer.MAX_VALUE, -Integer.MAX_VALUE);
+                                    if (clickPoint.isLongClick) {
+                                        longClickColumn(column, j, value, data);
+                                        isClickPoint = ClickType.LONG_CLICK;
+                                    } else {
+                                        clickColumn(column, j, value, data);
+                                        isClickPoint = ClickType.CLICK;
+                                    }
+                                    clickPoint.reset();
                                 }
                                 operation.checkSelectedPoint(i, j, correctCellRect);
                                 cellInfo.set(column, data, value, i, j);
@@ -398,8 +407,14 @@ public class TableProvider<T> implements TableClickObserver {
      * @param data     数据
      */
     private void clickColumn(Column column, int position, String value, Object data) {
-        if (!isClickPoint && column.getOnColumnItemClickListener() != null) {
+        if (isClickPoint.isNone() && column.getOnColumnItemClickListener() != null) {
             column.getOnColumnItemClickListener().onClick(column, value, data, position);
+        }
+    }
+
+    public void longClickColumn(Column column, int position, String value, Object data) {
+        if (isClickPoint.isNone() && column.getOnColumnItemLongClickListener() != null) {
+            column.getOnColumnItemLongClickListener().onLongClick(column, value, data, position);
         }
     }
 
@@ -444,6 +459,14 @@ public class TableProvider<T> implements TableClickObserver {
     public void onClick(float x, float y) {
         clickPoint.x = x;
         clickPoint.y = y;
+        clickPoint.isLongClick = false;
+    }
+
+    @Override
+    public void onLongClick(float x, float y) {
+        clickPoint.x = x;
+        clickPoint.y = y;
+        clickPoint.isLongClick = true;
     }
 
     public OnColumnClickListener getOnColumnClickListener() {
@@ -540,6 +563,38 @@ public class TableProvider<T> implements TableClickObserver {
 
     public SelectionOperation getOperation() {
         return operation;
+    }
+
+    private class PointLF extends PointF {
+        boolean isLongClick;
+
+        public PointLF(float x, float y, boolean isLongClick) {
+            super(x, y);
+            this.isLongClick = isLongClick;
+        }
+
+        public final void reset() {
+            set(-1, -1);
+            isLongClick = false;
+        }
+    }
+
+    private enum ClickType {
+        NONE,
+        CLICK,
+        LONG_CLICK;
+
+        public boolean isClick() {
+            return this == CLICK;
+        }
+
+        public boolean isLongClick() {
+            return this == LONG_CLICK;
+        }
+
+        public boolean isNone() {
+            return this == NONE;
+        }
     }
 
 }

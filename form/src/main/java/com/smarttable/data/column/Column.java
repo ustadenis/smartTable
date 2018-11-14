@@ -13,6 +13,7 @@ import com.smarttable.data.format.IFormat;
 import com.smarttable.data.format.draw.MultiLineDrawFormat;
 import com.smarttable.data.format.draw.TextDrawFormat;
 import com.smarttable.listener.OnColumnItemClickListener;
+import com.smarttable.listener.OnColumnItemLongClickListener;
 import com.smarttable.utils.LetterUtils;
 
 import java.lang.reflect.Field;
@@ -48,6 +49,7 @@ public class Column<T> implements Comparable<Column> {
     private ICountFormat<T,? extends Number> countFormat;
     private boolean isReverseSort;
     private OnColumnItemClickListener<T> onColumnItemClickListener;
+    private OnColumnItemLongClickListener<T> onColumnItemLongClickListener;
     private Paint.Align textAlign;
     private Paint.Align titleAlign;
     private boolean isAutoCount =false;
@@ -593,6 +595,14 @@ public class Column<T> implements Comparable<Column> {
      */
     public void setOnColumnItemClickListener(OnColumnItemClickListener<T> onColumnItemClickListener) {
         this.onColumnItemClickListener = onColumnItemClickListener;
+    }
+
+    public void setOnColumnItemLongClickListener(OnColumnItemLongClickListener<T> onColumnItemLongClickListener) {
+        this.onColumnItemLongClickListener = onColumnItemLongClickListener;
+    }
+
+    public OnColumnItemLongClickListener<T> getOnColumnItemLongClickListener() {
+        return onColumnItemLongClickListener;
     }
 
 
