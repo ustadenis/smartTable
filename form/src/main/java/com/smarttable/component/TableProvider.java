@@ -159,7 +159,7 @@ public class TableProvider<T> implements TableClickObserver {
                     } else if (isPerColumnFixed) {
                         canvas.save();
                         clipCount++;
-                        canvas.clipRect(clipRect.left, top - countHeight,
+                        canvas.clipRect(clipRect.left, Math.min(bottom, showRect.bottom) - countHeight,
                                 showRect.right, showRect.bottom);
                     }
                     tempRect.set((int) left, (int) top, (int) (left + width), (int) bottom);
