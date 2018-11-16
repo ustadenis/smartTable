@@ -76,8 +76,8 @@ public class TableProvider<T> implements TableClickObserver {
         canvas.save();
         canvas.clipRect(this.showRect);
         drawColumnTitle(canvas, config);
-        drawCount(canvas);
         drawContent(canvas);
+        drawCount(canvas);
         operation.draw(canvas, showRect, config);
         if (drawOver != null)
             drawOver.draw(canvas, scaleRect, showRect, config);
