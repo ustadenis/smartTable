@@ -76,7 +76,7 @@ public class TableInfo {
     }
 
     public int getTitleHeight() {
-        return (titleHeight);
+        return titleHeight;
     }
 
     public void setTitleHeight(int titleHeight) {

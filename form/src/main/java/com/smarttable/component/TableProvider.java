@@ -159,7 +159,7 @@ public class TableProvider<T> implements TableClickObserver {
                     } else if (isPerColumnFixed) {
                         canvas.save();
                         clipCount++;
-                        canvas.clipRect(clipRect.left, showRect.bottom - countHeight,
+                        canvas.clipRect(clipRect.left, top - countHeight,
                                 showRect.right, showRect.bottom);
                     }
                     tempRect.set((int) left, (int) top, (int) (left + width), (int) bottom);
@@ -242,9 +242,8 @@ public class TableProvider<T> implements TableClickObserver {
      */
     private void fillColumnTitle(Canvas canvas, ColumnInfo info, int left) {
 
-        int top = info.top
-                + (config.isFixedTitle() ? showRect.top : scaleRect.top);
-        int right = (left + info.width);
+        int top = info.top + (config.isFixedTitle() ? showRect.top : scaleRect.top);
+        int right = (int) (left + info.width * config.getZoom());
         int bottom = (top + info.height);
         if (DrawUtils.isMixRect(showRect, left, top, right, bottom)) {
             if (isClickPoint.isNone() && onColumnClickListener != null) {
