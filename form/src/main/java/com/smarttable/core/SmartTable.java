@@ -16,12 +16,12 @@ import com.smarttable.component.TableProvider;
 import com.smarttable.component.TableTitle;
 import com.smarttable.component.XSequence;
 import com.smarttable.component.YSequence;
-import com.smarttable.data.column.Column;
-import com.smarttable.data.table.PageTableData;
-import com.smarttable.data.table.TableData;
 import com.smarttable.data.TableInfo;
+import com.smarttable.data.column.Column;
 import com.smarttable.data.format.selected.ISelectFormat;
 import com.smarttable.data.style.FontStyle;
+import com.smarttable.data.table.PageTableData;
+import com.smarttable.data.table.TableData;
 import com.smarttable.listener.OnColumnClickListener;
 import com.smarttable.listener.OnTableChangeListener;
 import com.smarttable.matrix.MatrixHelper;
@@ -57,6 +57,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
     private AtomicBoolean isNotifying = new AtomicBoolean(false); //是否正在更新数据
     private boolean isYSequenceRight;
 
+    private final Object lock = new Object();
 
     public SmartTable(Context context) {
         super(context);
@@ -228,16 +229,18 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //long start = System.currentTimeMillis();
-                    parser.parse(tableData);
-                    TableInfo info = measurer.measure(tableData, config);
-                    xAxis.setHeight(info.getTopHeight());
-                    yAxis.setWidth(info.getyAxisWidth());
-                    requestReMeasure();
-                    postInvalidate();
-                    isNotifying.set(false);
-                    //long end = System.currentTimeMillis();
-                    //Log.e("smartTable","notifyDataChanged timeMillis="+(end-start));
+                    synchronized (lock) {
+                        //long start = System.currentTimeMillis();
+                        parser.parse(tableData);
+                        TableInfo info = measurer.measure(tableData, config);
+                        xAxis.setHeight(info.getTopHeight());
+                        yAxis.setWidth(info.getyAxisWidth());
+                        requestReMeasure();
+                        postInvalidate();
+                        isNotifying.set(false);
+                        //long end = System.currentTimeMillis();
+                        //Log.e("smartTable","notifyDataChanged timeMillis="+(end-start));
+                    }
                 }
 
             }).start();
@@ -258,11 +261,13 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    parser.addData(tableData, t, isFoot);
-                    measurer.measure(tableData, config);
-                    requestReMeasure();
-                    postInvalidate();
-                    isNotifying.set(false);
+                    synchronized (lock) {
+                        parser.addData(tableData, t, isFoot);
+                        measurer.measure(tableData, config);
+                        requestReMeasure();
+                        postInvalidate();
+                        isNotifying.set(false);
+                    }
 
                 }
             }).start();

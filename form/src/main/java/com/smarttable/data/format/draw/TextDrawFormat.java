@@ -70,8 +70,9 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
 
     protected String[] getSplitString(String val) {
         String[] values = null;
-        if (valueMap.get(val) != null) {
-            values = valueMap.get(val).get();
+        SoftReference<String[]> ref = valueMap.get(val);
+        if (ref != null) {
+            values = ref.get();
         }
         if (values == null) {
             values = val.split("\n");
