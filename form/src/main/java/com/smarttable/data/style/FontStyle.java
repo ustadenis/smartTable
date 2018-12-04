@@ -3,15 +3,14 @@ package com.smarttable.data.style;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 
 import com.smarttable.utils.DensityUtils;
-
 
 /**
  * Created by huang on 2017/9/27.
  */
-
-public class FontStyle implements IStyle{
+public class FontStyle implements IStyle {
 
     private static int defaultFontSize = 12;
     private static int defaultFontColor = Color.parseColor("#636363");
@@ -19,33 +18,21 @@ public class FontStyle implements IStyle{
     private int textSize;
     private int textColor;
     private Paint.Align align;
+    private Typeface typeface = Typeface.DEFAULT;
 
-    /**
-     * 设置表格全局默认字体大小
-     * @param defaultTextSize 默认字体大小
-     */
-    public static void setDefaultTextSize(int defaultTextSize){
+    public static void setDefaultTextSize(int defaultTextSize) {
         defaultFontSize = defaultTextSize;
     }
-    /**
-     * 设置表格全局默认字体位置
-     * @param align 默认字体位置
-     */
-    public static void setDefaultTextAlign(Paint.Align align){
+
+    public static void setDefaultTextAlign(Paint.Align align) {
         defaultAlign = align;
     }
-    /**
-     * 设置表格全局默认字体大小
-     * @param defaultTextSpSize 默认字体Sp大小
-     */
-    public static void setDefaultTextSpSize(Context context,int defaultTextSpSize){
-        defaultFontSize = DensityUtils.sp2px(context,defaultTextSpSize);
+
+    public static void setDefaultTextSpSize(Context context, int defaultTextSpSize) {
+        defaultFontSize = DensityUtils.sp2px(context, defaultTextSpSize);
     }
-    /**
-     * 设置表格全局默认字体颜色
-     * @param defaultTextColor 默认字体颜色
-     */
-    public static void setDefaultTextColor(int defaultTextColor){
+
+    public static void setDefaultTextColor(int defaultTextColor) {
         defaultFontColor = defaultTextColor;
     }
 
@@ -56,14 +43,14 @@ public class FontStyle implements IStyle{
         this.textSize = textSize;
         this.textColor = textColor;
     }
-    
+
     public FontStyle(Context context, int sp, int textColor) {
-        this.textSize = DensityUtils.sp2px(context,sp);
+        this.textSize = DensityUtils.sp2px(context, sp);
         this.textColor = textColor;
     }
 
     public Paint.Align getAlign() {
-        if(align == null){
+        if (align == null) {
             return defaultAlign;
         }
         return align;
@@ -75,7 +62,7 @@ public class FontStyle implements IStyle{
     }
 
     public int getTextSize() {
-        if(textSize == 0){
+        if (textSize == 0) {
             return defaultFontSize;
         }
         return textSize;
@@ -86,32 +73,37 @@ public class FontStyle implements IStyle{
         return this;
     }
 
-    public void setTextSpSize(Context context,int sp){
-        this.setTextSize(DensityUtils.sp2px(context,sp));
+    public void setTextSpSize(Context context, int sp) {
+        this.setTextSize(DensityUtils.sp2px(context, sp));
     }
 
     public int getTextColor() {
-        if(textColor == 0){
+        if (textColor == 0) {
             return defaultFontColor;
         }
         return textColor;
     }
 
     public FontStyle setTextColor(int textColor) {
-        
+
         this.textColor = textColor;
         return this;
     }
 
+    public Typeface getTypeface() {
+        return typeface;
+    }
 
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+    }
 
     @Override
-    public void fillPaint(Paint paint){
+    public void fillPaint(Paint paint) {
         paint.setColor(getTextColor());
         paint.setTextAlign(getAlign());
         paint.setTextSize(getTextSize());
         paint.setStyle(Paint.Style.FILL);
+        paint.setTypeface(typeface);
     }
-
-
 }
