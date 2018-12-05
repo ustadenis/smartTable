@@ -407,9 +407,14 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
         if (tableData != null) {
             config.setZoom(scale);
             tableData.getTableInfo().setZoom(scale);
-            if (scrollListener != null)
-                scrollListener.onScrollChanged(this, translateX, translateY);
             invalidate();
+        }
+    }
+
+    @Override
+    public void onScrolled(float dx, float dy) {
+        if (scrollListener != null) {
+            scrollListener.onScrollChanged(this, dx, dy);
         }
     }
 
@@ -636,7 +641,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
         isYSequenceRight = YSequenceRight;
     }
 
-    interface OnScrollListener {
+    public interface OnScrollListener {
         void onScrollChanged(SmartTable table, float dx, float dy);
     }
 }

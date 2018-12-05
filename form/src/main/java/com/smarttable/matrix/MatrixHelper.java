@@ -7,7 +7,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -226,6 +225,11 @@ public class MatrixHelper extends Observable<TableClickObserver> implements ITou
 
                 translateX += distanceX;
                 translateY += distanceY;
+
+                if (listener != null) {
+                    listener.onScrolled(distanceX, distanceY);
+                }
+
                 notifyViewChanged();
             }
             return true;
