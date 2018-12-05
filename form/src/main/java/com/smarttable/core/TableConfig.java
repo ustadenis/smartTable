@@ -342,7 +342,7 @@ public class TableConfig {
     }
 
     public FontStyle getCountStyle() {
-        if (contentStyle == null) {
+        if (countStyle == null) {
             return defaultFontStyle;
         }
         return countStyle;
