@@ -56,6 +56,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
     private boolean isExactly = true; //是否是测量精准模式
     private AtomicBoolean isNotifying = new AtomicBoolean(false); //是否正在更新数据
     private boolean isYSequenceRight;
+    private OnScrollListener scrollListener;
 
     private final Object lock = new Object();
 
@@ -406,6 +407,8 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
         if (tableData != null) {
             config.setZoom(scale);
             tableData.getTableInfo().setZoom(scale);
+            if (scrollListener != null)
+                scrollListener.onScrollChanged(this, translateX, translateY);
             invalidate();
         }
     }
@@ -589,6 +592,14 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
         return yAxis;
     }
 
+    public OnScrollListener getScrollListener() {
+        return scrollListener;
+    }
+
+    public void setScrollListener(OnScrollListener scrollListener) {
+        this.scrollListener = scrollListener;
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -623,6 +634,10 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
 
     public void setYSequenceRight(boolean YSequenceRight) {
         isYSequenceRight = YSequenceRight;
+    }
+
+    interface OnScrollListener {
+        void onScrollChanged(SmartTable table, float dx, float dy);
     }
 }
 
