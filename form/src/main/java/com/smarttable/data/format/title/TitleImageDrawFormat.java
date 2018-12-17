@@ -47,7 +47,7 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
         int textWidth = textDrawFormat.measureWidth(column, config);
         horizontalPadding = config.getColumnTitleHorizontalPadding();
         if (direction == LEFT || direction == RIGHT) {
-            return getImageWidth() + textWidth + drawPadding;
+            return getImageWidth() + textWidth + drawPadding + 2 * horizontalPadding;
         } else {
             return Math.max(super.measureWidth(column, config), textWidth);
         }
@@ -59,7 +59,7 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
         int textHeight = textDrawFormat.measureHeight(config);
         verticalPadding = config.getColumnTitleVerticalPadding();
         if (direction == TOP || direction == BOTTOM) {
-            return getImageHeight() + textHeight + drawPadding;
+            return getImageHeight() + textHeight + drawPadding + 2 * verticalPadding;
         } else {
             return Math.max(imgHeight, textHeight);
         }
@@ -89,7 +89,7 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
                 break;
             case RIGHT:
                 textWidth = (int) (textDrawFormat.measureWidth(column, config) * config.getZoom());
-                imgLeft = rect.left + textWidth + drawPadding + config.getColumnTitleHorizontalPadding();
+                imgLeft = rect.left + textWidth + drawPadding;
                 imgRight = (int) (imgLeft + getImageWidth() * config.getZoom());
                 this.rect.set(imgLeft, rect.top, imgRight, rect.bottom);
                 super.draw(c, column, this.rect, config);

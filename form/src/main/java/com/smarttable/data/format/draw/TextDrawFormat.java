@@ -31,7 +31,7 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
     public int measureWidth(Column<T> column, int position, TableConfig config) {
         Paint paint = config.getPaint();
         config.getContentStyle().fillPaint(paint);
-        return DrawUtils.getMultiTextWidth(paint, getSplitString(column.format(position)));
+        return DrawUtils.getMultiTextWidth(paint, getSplitString(column.format(position))) + 2 * config.getHorizontalPadding();
     }
 
 
@@ -39,7 +39,7 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
     public int measureHeight(Column<T> column, int position, TableConfig config) {
         Paint paint = config.getPaint();
         config.getContentStyle().fillPaint(paint);
-        return DrawUtils.getMultiTextHeight(paint, getSplitString(column.format(position)));
+        return DrawUtils.getMultiTextHeight(paint, getSplitString(column.format(position))) + 2 * config.getVerticalPadding();
     }
 
     @Override
@@ -49,7 +49,10 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
         if (cellInfo.column.getTextAlign() != null) {
             paint.setTextAlign(cellInfo.column.getTextAlign());
         }
-        rect.set(rect.left + config.getHorizontalPadding(), rect.top, rect.right, rect.bottom);
+        rect.set(rect.left + config.getHorizontalPadding(),
+                rect.top + config.getVerticalPadding(),
+                rect.right - config.getHorizontalPadding(),
+                rect.bottom - config.getVerticalPadding());
         drawText(c, cellInfo.value, rect, paint);
     }
 

@@ -449,7 +449,10 @@ public class TableProvider<T> implements TableClickObserver {
         if (column.getTextAlign() != null) {
             paint.setTextAlign(column.getTextAlign());
         }
-        rect.set(rect.left + config.getColumnTitleHorizontalPadding(), rect.top, rect.right, rect.bottom);
+        rect.set(rect.left + config.getHorizontalPadding(),
+                rect.top + config.getVerticalPadding(),
+                rect.right - config.getHorizontalPadding(),
+                rect.bottom - config.getVerticalPadding());
         canvas.drawText(text, DrawUtils.getTextCenterX(rect.left, rect.right, paint), DrawUtils.getTextCenterY(rect.centerY(), paint), paint);
     }
 

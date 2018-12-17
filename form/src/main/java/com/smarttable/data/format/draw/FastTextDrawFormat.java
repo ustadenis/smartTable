@@ -22,9 +22,9 @@ public class FastTextDrawFormat<T> extends TextDrawFormat<T> {
     private int maxLengthValue;
 
     @Override
-    public int measureWidth(Column<T>column, int position, TableConfig config) {
+    public int measureWidth(Column<T> column, int position, TableConfig config) {
         String value = column.format(position);
-        if(value.length() >maxLengthValue){
+        if (value.length() > maxLengthValue) {
             maxLengthValue = value.length();
             Paint paint = config.getPaint();
             config.getContentStyle().fillPaint(paint);
@@ -34,21 +34,19 @@ public class FastTextDrawFormat<T> extends TextDrawFormat<T> {
     }
 
     @Override
-    public int measureHeight(Column<T> column,int position, TableConfig config) {
-        if(height ==0) {
+    public int measureHeight(Column<T> column, int position, TableConfig config) {
+        if (height == 0) {
             Paint paint = config.getPaint();
             config.getContentStyle().fillPaint(paint);
-            height =  DrawUtils.getTextHeight(paint);
+            height = DrawUtils.getTextHeight(paint);
         }
         return height;
     }
 
 
-
     protected void drawText(Canvas c, String value, Rect rect, Paint paint) {
-        DrawUtils.drawSingleText(c,paint,rect,value);
+        DrawUtils.drawSingleText(c, paint, rect, value);
     }
-
 
 
 }

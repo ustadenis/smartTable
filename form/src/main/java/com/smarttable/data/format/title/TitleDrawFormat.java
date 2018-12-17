@@ -21,7 +21,7 @@ public class TitleDrawFormat implements ITitleDrawFormat {
     public int measureWidth(Column column, TableConfig config) {
         Paint paint = config.getPaint();
         config.getColumnTitleStyle().fillPaint(paint);
-        return (int) (paint.measureText(column.getColumnName()));
+        return (int) (paint.measureText(column.getColumnName()) + 2 * config.getColumnTitleHorizontalPadding());
     }
 
 
@@ -29,7 +29,7 @@ public class TitleDrawFormat implements ITitleDrawFormat {
     public int measureHeight(TableConfig config) {
         Paint paint = config.getPaint();
         config.getColumnTitleStyle().fillPaint(paint);
-        return DrawUtils.getTextHeight(config.getColumnTitleStyle(), config.getPaint());
+        return DrawUtils.getTextHeight(config.getColumnTitleStyle(), config.getPaint()) + 2 * config.getColumnTitleVerticalPadding();
     }
 
     @Override
@@ -43,10 +43,14 @@ public class TitleDrawFormat implements ITitleDrawFormat {
         if (isDrawBg && backgroundFormat.getTextColor(column) != TableConfig.INVALID_COLOR) {
             paint.setColor(backgroundFormat.getTextColor(column));
         }
+        rect.set(rect.left + config.getColumnTitleHorizontalPadding(),
+                rect.top + config.getColumnTitleVerticalPadding(),
+                rect.right - config.getColumnTitleHorizontalPadding(),
+                rect.bottom - config.getColumnTitleVerticalPadding());
         drawText(c, column, rect, paint);
     }
 
-    private void drawText(Canvas c, Column column, Rect rect, Paint paint) {
+    protected void drawText(Canvas c, Column column, Rect rect, Paint paint) {
         if (column.getTitleAlign() != null) { //如果列设置Align ，则使用列的Align
             paint.setTextAlign(column.getTitleAlign());
         }
