@@ -43,10 +43,10 @@ public class TitleDrawFormat implements ITitleDrawFormat {
         if (isDrawBg && backgroundFormat.getTextColor(column) != TableConfig.INVALID_COLOR) {
             paint.setColor(backgroundFormat.getTextColor(column));
         }
-        rect.set(rect.left + config.getColumnTitleHorizontalPadding(),
-                rect.top + config.getColumnTitleVerticalPadding(),
-                rect.right - config.getColumnTitleHorizontalPadding(),
-                rect.bottom - config.getColumnTitleVerticalPadding());
+        rect.set(rect.left + (int) (config.getColumnTitleHorizontalPadding() * config.getZoom()),
+                rect.top + (int) (config.getColumnTitleVerticalPadding() * config.getZoom()),
+                rect.right - (int) (config.getColumnTitleHorizontalPadding() * config.getZoom()),
+                rect.bottom - (int) (config.getColumnTitleVerticalPadding() * config.getZoom()));
         drawText(c, column, rect, paint);
     }
 

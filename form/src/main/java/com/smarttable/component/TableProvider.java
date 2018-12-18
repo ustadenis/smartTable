@@ -133,7 +133,7 @@ public class TableProvider<T> implements TableClickObserver {
         if (tableData.isShowCount()) {
             float left = scaleRect.left;
             float bottom = config.isFixedCountRow() ? Math.min(scaleRect.bottom, showRect.bottom) : scaleRect.bottom;
-            int countHeight = tableData.getTableInfo().getCountHeight();
+            int countHeight = (int) (tableData.getTableInfo().getCountHeight() * config.getZoom());
             float top = bottom - countHeight;
             if (config.getCountBackground() != null) {
                 tempRect.set((int) left, (int) top, showRect.right, (int) bottom);
@@ -181,17 +181,16 @@ public class TableProvider<T> implements TableClickObserver {
      */
     private void drawTitle(Canvas canvas) {
         int dis = showRect.top - scaleRect.top;
+        float zoom = config.getZoom();
         TableInfo tableInfo = tableData.getTableInfo();
-        int titleHeight = tableInfo.getTitleHeight() * tableInfo.getMaxLevel();
-        int clipHeight = config.isFixedTitle() ? titleHeight : Math.max(0, titleHeight - dis);
+        int titleHeight = (int) (tableInfo.getTitleHeight() * tableInfo.getMaxLevel() * zoom);
+        int clipHeight = (int) ((config.isFixedTitle() ? titleHeight : Math.max(0, titleHeight - dis)) * zoom);
         if (config.getColumnTitleBackground() != null) {
-            tempRect.set(showRect.left, showRect.top, showRect.right,
-                    showRect.top + clipHeight);
+            tempRect.set(showRect.left, showRect.top, showRect.right, showRect.top + titleHeight);
             config.getColumnTitleBackground().drawBackground(canvas, tempRect, config.getPaint());
         }
         clipRect.set(showRect);
         List<ColumnInfo> columnInfoList = tableData.getColumnInfos();
-        float zoom = config.getZoom();
         boolean isPerColumnFixed = false;
         int clipCount = 0;
         ColumnInfo parentColumnInfo = null;
@@ -213,8 +212,7 @@ public class TableProvider<T> implements TableClickObserver {
                 left += (info.left - parentColumnInfo.left);
             } else if (isPerColumnFixed) {
                 canvas.save();
-                canvas.clipRect(clipRect.left, showRect.top, showRect.right,
-                        showRect.top + clipHeight);
+                canvas.clipRect(clipRect.left, showRect.top, showRect.right, showRect.top + titleHeight);
                 isPerColumnFixed = false;
                 clipCount++;
             }
@@ -242,9 +240,9 @@ public class TableProvider<T> implements TableClickObserver {
      */
     private void fillColumnTitle(Canvas canvas, ColumnInfo info, int left) {
 
-        int top = info.top + (config.isFixedTitle() ? showRect.top : scaleRect.top);
+        int top = (int) (info.top * config.getZoom() + (config.isFixedTitle() ? showRect.top : scaleRect.top));
         int right = (int) (left + info.width * config.getZoom());
-        int bottom = (top + info.height);
+        int bottom = (int) (top + info.height * config.getZoom());
         if (DrawUtils.isMixRect(showRect, left, top, right, bottom)) {
             if (isClickPoint.isNone() && onColumnClickListener != null) {
                 if (DrawUtils.isClick(left, top, right, bottom, clickPoint)) {
@@ -265,7 +263,6 @@ public class TableProvider<T> implements TableClickObserver {
                 config.getTableGridFormat().drawColumnTitleGrid(canvas, tempRect, info.column, position, paint);
             }
             tableData.getTitleDrawFormat().draw(canvas, info.column, tempRect, config);
-
         }
     }
 
