@@ -20,8 +20,7 @@ import java.util.Map;
 
 public class TextDrawFormat<T> implements IDrawFormat<T> {
 
-
-    private Map<String, SoftReference<String[]>> valueMap; //避免产生大量对象
+    private Map<String, SoftReference<String[]>> valueMap; // Avoid generating a lot of objects
 
     public TextDrawFormat() {
         valueMap = new HashMap<>();
@@ -33,7 +32,6 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
         config.getContentStyle().fillPaint(paint);
         return DrawUtils.getMultiTextWidth(paint, getSplitString(column.format(position))) + 2 * config.getHorizontalPadding();
     }
-
 
     @Override
     public int measureHeight(Column<T> column, int position, TableConfig config) {
@@ -60,7 +58,6 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
         DrawUtils.drawMultiText(c, paint, rect, getSplitString(value));
     }
 
-
     public void setTextPaint(TableConfig config, CellInfo<T> cellInfo, Paint paint) {
         config.getContentStyle().fillPaint(paint);
         ICellBackgroundFormat<CellInfo> backgroundFormat = config.getContentCellBackgroundFormat();
@@ -68,7 +65,6 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
             paint.setColor(backgroundFormat.getTextColor(cellInfo));
         }
         paint.setTextSize(paint.getTextSize() * config.getZoom());
-
     }
 
     protected String[] getSplitString(String val) {
