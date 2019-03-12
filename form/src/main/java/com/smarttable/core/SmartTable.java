@@ -29,13 +29,12 @@ import com.smarttable.utils.DensityUtils;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created by huang on 2017/10/30.
  * 表格
  */
-
 public class SmartTable<T> extends View implements OnTableChangeListener {
 
     private XSequence<T> xAxis;
@@ -46,7 +45,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
     private Rect tableRect;
     private TableConfig config;
     private TableParser<T> parser;
-    private TableData<T> tableData;
+    private AtomicReference<TableData<T>> tableDataAtomic = new AtomicReference<>();
     private int defaultHeight = 300;
     private int defaultWidth = 300;
     private TableMeasurer<T> measurer;
@@ -113,6 +112,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
     @Override
     protected void onDraw(Canvas canvas) {
         if (!isNotifying.get()) {
+            final TableData<T> tableData = tableDataAtomic.get();
             setScrollY(0);
             showRect.set(getPaddingLeft(), getPaddingTop(),
                     getWidth() - getPaddingRight(),
@@ -207,7 +207,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      */
     public void setTableData(TableData<T> tableData) {
         if (tableData != null) {
-            this.tableData = tableData;
+            tableDataAtomic.set(tableData);
             notifyDataChanged();
         }
     }
@@ -220,6 +220,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      * 通知更新
      */
     public void notifyDataChanged() {
+        final TableData<T> tableData = tableDataAtomic.get();
         if (tableData != null) {
             config.setPaint(paint);
             //开启线程
@@ -254,6 +255,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
                 @Override
                 public void run() {
                     synchronized (lock) {
+                        final TableData<T> tableData = tableDataAtomic.get();
                         isNotifying.set(true);
                         parser.addData(tableData, t, isFoot);
                         measurer.measure(tableData, config);
@@ -282,6 +284,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      */
     private void requestReMeasure() {
         //不是精准模式 且已经测量了
+        final TableData<T> tableData = tableDataAtomic.get();
         if (!isExactly && getMeasuredHeight() != 0 && tableData != null) {
             if (tableData.getTableInfo().getTableRect() != null) {
                 int defaultHeight = tableData.getTableInfo().getTableRect().height()
@@ -296,12 +299,10 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
                 int maxHeight = screenHeight - realSize[1];
                 defaultHeight = Math.min(defaultHeight, maxHeight);
                 defaultWidth = Math.min(defaultWidth, maxWidth);
-                //Log.e("SmartTable","old defaultHeight"+this.defaultHeight+"defaultWidth"+this.defaultWidth);
                 if (this.defaultHeight != defaultHeight
                         || this.defaultWidth != defaultWidth) {
                     this.defaultHeight = defaultHeight;
                     this.defaultWidth = defaultWidth;
-                    // Log.e("SmartTable","new defaultHeight"+defaultHeight+"defaultWidth"+defaultWidth);
                     post(new Runnable() {
                         @Override
                         public void run() {
@@ -343,7 +344,6 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      * 计算组件高度
      */
     private int measureHeight(int measureSpec) {
-
         int result;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
@@ -391,6 +391,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      */
     @Override
     public void onTableChanged(float scale, float translateX, float translateY) {
+        final TableData<T> tableData = tableDataAtomic.get();
         if (tableData != null) {
             config.setZoom(scale);
             tableData.getTableInfo().setZoom(scale);
@@ -429,6 +430,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      * @param isReverse 是否反序
      */
     public void setSortColumn(Column column, boolean isReverse) {
+        final TableData<T> tableData = tableDataAtomic.get();
         if (tableData != null && column != null) {
             column.setReverseSort(isReverse);
             tableData.setSortColumn(column);
@@ -456,7 +458,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
      * @return 表格数据
      */
     public TableData<T> getTableData() {
-        return tableData;
+        return tableDataAtomic.get();
     }
 
     /**
@@ -584,6 +586,7 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        final TableData<T> tableData = tableDataAtomic.get();
         if (tableData != null && getContext() != null) {
             if (((Activity) getContext()).isFinishing()) {
                 release();
@@ -600,10 +603,10 @@ public class SmartTable<T> extends View implements OnTableChangeListener {
         measurer = null;
         provider = null;
         matrixHelper = null;
-        provider = null;
+        final TableData<T> tableData = tableDataAtomic.get();
         if (tableData != null) {
             tableData.clear();
-            tableData = null;
+            tableDataAtomic.set(null);
         }
         xAxis = null;
         yAxis = null;

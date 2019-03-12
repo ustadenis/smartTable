@@ -1,13 +1,13 @@
 package com.smarttable.core;
 
-import com.smarttable.data.column.ArrayColumn;
 import com.smarttable.data.ArrayStructure;
 import com.smarttable.data.CellRange;
+import com.smarttable.data.TableInfo;
+import com.smarttable.data.column.ArrayColumn;
+import com.smarttable.data.column.Column;
 import com.smarttable.data.column.ColumnNode;
 import com.smarttable.data.table.ArrayTableData;
-import com.smarttable.data.column.Column;
 import com.smarttable.data.table.TableData;
-import com.smarttable.data.TableInfo;
 import com.smarttable.exception.TableException;
 
 import java.util.ArrayList;
@@ -189,14 +189,12 @@ public class TableParser<T> {
      * @return
      */
     public List<Column> sort(TableData<T> tableData) {
-
         final Column sortColumn = tableData.getSortColumn();
         if (sortColumn != null) {
-            List<T> dataList = tableData.getT();
+            List<T> dataList = new ArrayList<>(tableData.getT());
             Collections.sort(dataList, new Comparator<T>() {
                 @Override
                 public int compare(T o1, T o2) {
-
                     try {
                         if (o1 == null) {
                             return sortColumn.isReverseSort() ? 1 : -1;
@@ -232,6 +230,9 @@ public class TableParser<T> {
                     }
                 }
             });
+
+            tableData.getT().clear();
+            tableData.getT().addAll(dataList);
         }
         return tableData.getColumns();
     }

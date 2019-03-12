@@ -14,9 +14,9 @@ import com.smarttable.data.format.title.TitleDrawFormat;
 import com.smarttable.listener.OnColumnItemClickListener;
 import com.smarttable.listener.OnColumnItemLongClickListener;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by huang on 2017/10/30.
@@ -25,12 +25,12 @@ import java.util.List;
 public class TableData<T> {
 
     private String tableName;
-    private List<Column> columns;
-    private List<T> t;
-    private List<Column> childColumns;
+    private CopyOnWriteArrayList<Column> columns = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<T> t = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Column> childColumns = new CopyOnWriteArrayList<>();
     private TableInfo tableInfo = new TableInfo();
-    private List<ColumnInfo> columnInfos;
-    private List<ColumnInfo> childColumnInfos;
+    private CopyOnWriteArrayList<ColumnInfo> columnInfos = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<ColumnInfo> childColumnInfos = new CopyOnWriteArrayList<>();
     private Column sortColumn;
     private boolean showCount; //显示统计
     private ITitleDrawFormat titleDrawFormat;
@@ -71,12 +71,9 @@ public class TableData<T> {
      */
     public TableData(String tableName, List<T> t, List<Column> columns, ITitleDrawFormat titleDrawFormat) {
         this.tableName = tableName;
-        this.columns = columns;
-        this.t = t;
+        this.columns.addAllAbsent(columns);
+        this.t.addAllAbsent(t);
         tableInfo.setLineSize(t.size());
-        childColumns = new ArrayList<>();
-        columnInfos = new ArrayList<>();
-        childColumnInfos = new ArrayList<>();
         //cellRangeAddresses = new ArrayList<>();
         this.titleDrawFormat = titleDrawFormat == null ? new TitleDrawFormat() : titleDrawFormat;
     }
@@ -111,7 +108,8 @@ public class TableData<T> {
      * 设置新列列表
      */
     public void setColumns(List<Column> columns) {
-        this.columns = columns;
+        this.columns.clear();
+        this.columns.addAllAbsent(columns);
     }
 
     /**
@@ -127,7 +125,8 @@ public class TableData<T> {
      * 设置解析数据
      */
     public void setT(List<T> t) {
-        this.t = t;
+        this.t.clear();
+        this.t.addAllAbsent(t);
         tableInfo.setLineSize(t.size());
     }
 
@@ -181,21 +180,24 @@ public class TableData<T> {
      * 设置子列信息列表
      */
     public void setChildColumnInfos(List<ColumnInfo> childColumnInfos) {
-        this.childColumnInfos = childColumnInfos;
+        this.childColumnInfos.clear();
+        this.childColumnInfos.addAllAbsent(childColumnInfos);
     }
 
     /**
      * 设置列信息列表
      */
     public void setColumnInfos(List<ColumnInfo> columnInfos) {
-        this.columnInfos = columnInfos;
+        this.columnInfos.clear();
+        this.columnInfos.addAllAbsent(columnInfos);
     }
 
     /**
      * 设置子列
      */
     public void setChildColumns(List<Column> childColumns) {
-        this.childColumns = childColumns;
+        this.childColumns.clear();
+        this.childColumns.addAllAbsent(childColumns);
     }
 
     /**
