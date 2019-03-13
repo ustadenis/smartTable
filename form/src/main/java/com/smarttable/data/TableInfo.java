@@ -131,7 +131,7 @@ public class TableInfo {
     }
 
     public int getCountHeight() {
-        return countHeight;
+        return (int) (countHeight * zoom);
     }
 
     public void setCountHeight(int countHeight) {

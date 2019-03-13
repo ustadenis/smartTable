@@ -133,7 +133,7 @@ public class TableProvider<T> implements TableClickObserver {
         if (tableData.isShowCount()) {
             float left = scaleRect.left;
             float bottom = config.isFixedCountRow() ? Math.min(scaleRect.bottom, showRect.bottom) : scaleRect.bottom;
-            int countHeight = (int) (tableData.getTableInfo().getCountHeight() * config.getZoom());
+            int countHeight = tableData.getTableInfo().getCountHeight();
             float top = bottom - countHeight;
             if (config.getCountBackground() != null) {
                 tempRect.set((int) left, (int) top, showRect.right, (int) bottom);
