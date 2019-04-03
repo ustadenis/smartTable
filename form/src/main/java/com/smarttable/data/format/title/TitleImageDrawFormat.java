@@ -21,8 +21,8 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
     private TitleDrawFormat textDrawFormat;
     private int drawPadding;
     private int direction;
-    private int verticalPadding;
-    private int horizontalPadding;
+    private int titleVerticalPadding;
+    private int titleHorizontalPadding;
     private Rect rect;
 
     public TitleImageDrawFormat(int imageWidth, int imageHeight, int drawPadding) {
@@ -45,9 +45,10 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
     @Override
     public int measureWidth(Column column, TableConfig config) {
         int textWidth = textDrawFormat.measureWidth(column, config);
-        horizontalPadding = config.getColumnTitleHorizontalPadding();
+        int horizontalPadding = config.getHorizontalPadding();
+        titleHorizontalPadding = config.getColumnTitleHorizontalPadding();
         if (direction == LEFT || direction == RIGHT) {
-            return getImageWidth() + textWidth + drawPadding + 2 * horizontalPadding;
+            return getImageWidth() + textWidth + drawPadding + 2 * titleHorizontalPadding - 2 * horizontalPadding;
         } else {
             return Math.max(super.measureWidth(column, config), textWidth);
         }
@@ -57,9 +58,10 @@ public abstract class TitleImageDrawFormat extends ImageResTitleDrawFormat {
     public int measureHeight(TableConfig config) {
         int imgHeight = super.measureHeight(config);
         int textHeight = textDrawFormat.measureHeight(config);
-        verticalPadding = config.getColumnTitleVerticalPadding();
+        int verticalPadding = config.getVerticalPadding();
+        titleVerticalPadding = config.getColumnTitleVerticalPadding();
         if (direction == TOP || direction == BOTTOM) {
-            return getImageHeight() + textHeight + drawPadding + 2 * verticalPadding;
+            return getImageHeight() + textHeight + drawPadding + 2 * titleVerticalPadding - 2 * verticalPadding;
         } else {
             return Math.max(imgHeight, textHeight);
         }

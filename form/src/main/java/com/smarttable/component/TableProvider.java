@@ -294,6 +294,19 @@ public class TableProvider<T> implements TableClickObserver {
         int clipCount = 0;
         Rect correctCellRect;
         TableInfo tableInfo = tableData.getTableInfo();
+
+        int firstVisibleRow = 0;
+        int lastVisibleRow = 0;
+
+        if (!columns.isEmpty()) {
+            for (int j = 0; j < columns.get(0).getDatas().size(); j++) {
+                correctCellRect = gridDrawer.correctCellRect(j, 0, tempRect, config.getZoom());
+                if (correctCellRect.top < showRect.bottom) lastVisibleRow = j;
+                else if (correctCellRect.bottom < showRect.top) firstVisibleRow = j;
+                else break;
+            }
+        }
+
         for (int i = 0; i < columnSize; i++) {
             top = scaleRect.top;
             Column column = columns.get(i);
@@ -317,9 +330,9 @@ public class TableProvider<T> implements TableClickObserver {
             float right = left + width;
 
             if (left < showRect.right) {
-                int size = column.getDatas().size();
                 int realPosition = 0;
-                for (int j = 0; j < size; j++) {
+
+                for (int j = firstVisibleRow; j <= lastVisibleRow; j++) {
                     String value = column.format(j);
                     int skip = tableInfo.getSeizeCellSize(column, j);
                     int totalLineHeight = 0;

@@ -141,8 +141,7 @@ public class TableMeasurer<T> {
         config.getYSequenceStyle().fillPaint(paint);
         int totalSize = tableData.getLineSize();
         if (config.isShowYSequence()) {
-            int yAxisWidth = (int) paint.measureText(tableData.getYSequenceFormat().format(totalSize)
-                    + 2 * config.getSequenceHorizontalPadding());
+            int yAxisWidth = (int) paint.measureText(tableData.getYSequenceFormat().format(totalSize));
             tableData.getTableInfo().setyAxisWidth(yAxisWidth);
             totalWidth += yAxisWidth;
         }
@@ -153,8 +152,7 @@ public class TableMeasurer<T> {
         TableInfo tableInfo = tableData.getTableInfo();
         int currentPosition, size;
         for (Column column : tableData.getChildColumns()) {
-            float columnNameWidth = tableData.getTitleDrawFormat().measureWidth(column, config)
-                    + config.getColumnTitleHorizontalPadding() * 2;
+            float columnNameWidth = tableData.getTitleDrawFormat().measureWidth(column, config);
             int columnWidth = 0;
             size = column.getDatas().size();
             currentPosition = 0;
@@ -187,11 +185,11 @@ public class TableMeasurer<T> {
                     columnWidth = width;
                 }
             }
-            int width = (int) (Math.max(columnNameWidth, columnWidth + 2 * config.getHorizontalPadding()));
+            int width = (int) (Math.max(columnNameWidth, columnWidth));
             if (tableData.isShowCount()) {
                 int totalCountWidth = column.getCountFormat() != null ?
                         (int) paint.measureText(column.getTotalNumString()) : 0;
-                width = Math.max(totalCountWidth + 2 * config.getHorizontalPadding(), width);
+                width = Math.max(totalCountWidth, width);
             }
             width = Math.max(column.getMinWidth(), width);
             column.setComputeWidth(width);

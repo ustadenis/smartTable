@@ -2,6 +2,7 @@ package com.smarttable.component;
 
 
 import android.graphics.Rect;
+
 import com.smarttable.data.column.Column;
 import com.smarttable.data.Cell;
 import com.smarttable.data.table.TableData;
@@ -14,13 +15,13 @@ import java.util.List;
  * 主要为了解决合并单元格问题
  */
 
-public class GridDrawer<T>{
+public class GridDrawer<T> {
 
 
     private TableData<T> tableData;
     private Cell[][] rangePoints;
 
-    public GridDrawer(){
+    public GridDrawer() {
 
     }
 
@@ -33,7 +34,7 @@ public class GridDrawer<T>{
 
     //矫正格子大小
     public Rect correctCellRect(int row, int col, Rect rect, float zoom) {
-        if(rangePoints != null && rangePoints.length >row){
+        if (rangePoints != null && rangePoints.length > row) {
             Cell point = rangePoints[row][col];
             if (point != null) {
                 if (point.col != Cell.INVALID && point.row != Cell.INVALID) {
@@ -45,9 +46,9 @@ public class GridDrawer<T>{
                     }
                     for (int i = row; i < Math.min(lineHeights.length, row + point.row); i++) {
                         height += lineHeights[i];
-                     }
-                    rect.right = (int) (rect.left + width*zoom);
-                    rect.bottom = (int) (rect.top + height*zoom);
+                    }
+                    rect.right = (int) (rect.left + width * zoom);
+                    rect.bottom = (int) (rect.top + height * zoom);
                     return rect;
                 }
                 return null;

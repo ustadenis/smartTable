@@ -47,10 +47,10 @@ public class TextDrawFormat<T> implements IDrawFormat<T> {
         if (cellInfo.column.getTextAlign() != null) {
             paint.setTextAlign(cellInfo.column.getTextAlign());
         }
-        rect.set(rect.left + config.getHorizontalPadding(),
-                rect.top + config.getVerticalPadding(),
-                rect.right - config.getHorizontalPadding(),
-                rect.bottom - config.getVerticalPadding());
+        rect.set(rect.left + (int) (config.getHorizontalPadding() * config.getZoom()),
+                rect.top + (int) (config.getVerticalPadding() * config.getZoom()),
+                rect.right - (int) (config.getHorizontalPadding() * config.getZoom()),
+                rect.bottom - (int) (config.getVerticalPadding() * config.getZoom()));
         drawText(c, cellInfo.value, rect, paint);
     }
 
