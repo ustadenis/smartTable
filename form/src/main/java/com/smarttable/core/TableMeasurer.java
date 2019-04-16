@@ -5,12 +5,12 @@ import android.graphics.Rect;
 
 import com.smarttable.component.IComponent;
 import com.smarttable.component.ITableTitle;
-import com.smarttable.data.column.ArrayColumn;
 import com.smarttable.data.Cell;
+import com.smarttable.data.TableInfo;
+import com.smarttable.data.column.ArrayColumn;
 import com.smarttable.data.column.Column;
 import com.smarttable.data.column.ColumnInfo;
 import com.smarttable.data.table.TableData;
-import com.smarttable.data.TableInfo;
 import com.smarttable.utils.DrawUtils;
 
 import java.util.List;
@@ -187,8 +187,9 @@ public class TableMeasurer<T> {
             }
             int width = (int) (Math.max(columnNameWidth, columnWidth));
             if (tableData.isShowCount()) {
+                config.getCountStyle().fillPaint(paint);
                 int totalCountWidth = column.getCountFormat() != null ?
-                        (int) paint.measureText(column.getTotalNumString()) : 0;
+                        (int) (paint.measureText(column.getTotalNumString()) + 2 * config.getColumnTitleHorizontalPadding()) : 0;
                 width = Math.max(totalCountWidth, width);
             }
             width = Math.max(column.getMinWidth(), width);
