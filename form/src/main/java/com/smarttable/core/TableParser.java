@@ -196,6 +196,9 @@ public class TableParser<T> {
                 @Override
                 public int compare(T o1, T o2) {
                     try {
+                        if (o1 == null && o2 == null) {
+                            return 0;
+                        }
                         if (o1 == null) {
                             return sortColumn.isReverseSort() ? 1 : -1;
                         }
@@ -204,6 +207,9 @@ public class TableParser<T> {
                         }
                         Object data = sortColumn.getData(o1);
                         Object compareData = sortColumn.getData(o2);
+                        if (data == null && compareData == null) {
+                            return 0;
+                        }
                         if (data == null) {
                             return sortColumn.isReverseSort() ? 1 : -1;
                         }
